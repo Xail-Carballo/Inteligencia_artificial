@@ -1,0 +1,201 @@
+File: C:\Users\User\Documents\inteligencia-artificial\Razonamiento lógico\project\kb\biblioteca.yaml
+Facts:
+  Estudiante(Ana)
+  Estudiante(Luis)
+  Profesor(Marta)
+  TieneCredencial(Ana)
+  TieneCredencial(Marta)
+  HorarioNocturno(Hoy)
+Rules:
+  R_miembro_est:  Estudiante(x) ∧ TieneCredencial(x)  →  Miembro(x)
+  R_miembro_prof:  Profesor(x)  →  Miembro(x)
+  R_acceso:  Miembro(x) ∧ HorarioNocturno(Hoy)  →  AccesoNoche(x)
+  R_beca:  Estudiante(x) ∧ TieneCredencial(x)  →  Becario(x)
+Query: AccesoNoche(Ana)
+
+=================================================================
+CONSULTA: AccesoNoche(Ana)
+=================================================================
+Forward chaining
+--------------------------------------------------
+Agenda (given facts): Estudiante(Ana), Estudiante(Luis), Profesor(Marta), TieneCredencial(Ana), TieneCredencial(Marta), HorarioNocturno(Hoy)
+Query: AccesoNoche(Ana)
+--- round 1 ---
+Fire R_miembro_est  {x_1/Ana}  ⇒  Miembro(Ana)
+Fire R_miembro_prof  {x_2/Marta}  ⇒  Miembro(Marta)
+Fire R_beca  {x_4/Ana}  ⇒  Becario(Ana)
+--- round 2 ---
+Fire R_acceso  {x_7/Ana}  ⇒  AccesoNoche(Ana)
+Fire R_acceso  {x_7/Marta}  ⇒  AccesoNoche(Marta)
+--- round 3 ---
+No new facts.
+Query proved: AccesoNoche(Ana)
+
+Backward chaining
+--------------------------------------------------
+Query: AccesoNoche(Ana)
+goal  AccesoNoche(Ana)
+rule   R_acceso  {x_3/Ana}
+  goal  Miembro(Ana)
+  rule   R_miembro_est  {x_3/Ana, x_4/Ana}
+    goal  Estudiante(Ana)
+    fact   Estudiante(Ana)  {x_3/Ana, x_4/Ana}
+    goal  TieneCredencial(Ana)
+    fact   TieneCredencial(Ana)  {x_3/Ana, x_4/Ana}
+  goal  HorarioNocturno(Hoy)
+  fact   HorarioNocturno(Hoy)  {x_3/Ana, x_4/Ana}
+Query proved.
+
+Contrast
+--------------------------------------------------
+Query AccesoNoche(Ana):  FC=YES  BC=YES
+Facts FC inferred:  Miembro(Ana), Miembro(Marta), Becario(Ana), AccesoNoche(Ana), AccesoNoche(Marta)
+Goals BC visited:   AccesoNoche(Ana), Miembro(Ana), Estudiante(Ana), TieneCredencial(Ana), HorarioNocturno(Hoy)
+FC extra work (not needed by BC):  Miembro(Marta), Becario(Ana), AccesoNoche(Marta)
+
+=================================================================
+CONSULTA: AccesoNoche(Luis)
+=================================================================
+Forward chaining
+--------------------------------------------------
+Agenda (given facts): Estudiante(Ana), Estudiante(Luis), Profesor(Marta), TieneCredencial(Ana), TieneCredencial(Marta), HorarioNocturno(Hoy)
+Query: AccesoNoche(Luis)
+--- round 1 ---
+Fire R_miembro_est  {x_1/Ana}  ⇒  Miembro(Ana)
+Fire R_miembro_prof  {x_2/Marta}  ⇒  Miembro(Marta)
+Fire R_beca  {x_4/Ana}  ⇒  Becario(Ana)
+--- round 2 ---
+Fire R_acceso  {x_7/Ana}  ⇒  AccesoNoche(Ana)
+Fire R_acceso  {x_7/Marta}  ⇒  AccesoNoche(Marta)
+--- round 3 ---
+No new facts.
+Query not proved.
+
+Backward chaining
+--------------------------------------------------
+Query: AccesoNoche(Luis)
+goal  AccesoNoche(Luis)
+rule   R_acceso  {x_3/Luis}
+  goal  Miembro(Luis)
+  rule   R_miembro_est  {x_3/Luis, x_4/Luis}
+    goal  Estudiante(Luis)
+    fact   Estudiante(Luis)  {x_3/Luis, x_4/Luis}
+    goal  TieneCredencial(Luis)
+    fail   TieneCredencial(Luis)
+  rule   R_miembro_prof  {x_3/Luis, x_9/Luis}
+    goal  Profesor(Luis)
+    fail   Profesor(Luis)
+  fail   Miembro(Luis)
+fail   AccesoNoche(Luis)
+Query not proved.
+
+Contrast
+--------------------------------------------------
+Query AccesoNoche(Luis):  FC=NO  BC=NO
+Facts FC inferred:  Miembro(Ana), Miembro(Marta), Becario(Ana), AccesoNoche(Ana), AccesoNoche(Marta)
+Goals BC visited:   AccesoNoche(Luis), Miembro(Luis), Estudiante(Luis), TieneCredencial(Luis), Profesor(Luis)
+FC extra work (not needed by BC):  Miembro(Ana), Miembro(Marta), Becario(Ana), AccesoNoche(Ana), AccesoNoche(Marta)
+
+=================================================================
+CONSULTA: AccesoNoche(Marta)
+=================================================================
+Forward chaining
+--------------------------------------------------
+Agenda (given facts): Estudiante(Ana), Estudiante(Luis), Profesor(Marta), TieneCredencial(Ana), TieneCredencial(Marta), HorarioNocturno(Hoy)
+Query: AccesoNoche(Marta)
+--- round 1 ---
+Fire R_miembro_est  {x_1/Ana}  ⇒  Miembro(Ana)
+Fire R_miembro_prof  {x_2/Marta}  ⇒  Miembro(Marta)
+Fire R_beca  {x_4/Ana}  ⇒  Becario(Ana)
+--- round 2 ---
+Fire R_acceso  {x_7/Ana}  ⇒  AccesoNoche(Ana)
+Fire R_acceso  {x_7/Marta}  ⇒  AccesoNoche(Marta)
+--- round 3 ---
+No new facts.
+Query proved: AccesoNoche(Marta)
+
+Backward chaining
+--------------------------------------------------
+Query: AccesoNoche(Marta)
+goal  AccesoNoche(Marta)
+rule   R_acceso  {x_3/Marta}
+  goal  Miembro(Marta)
+  rule   R_miembro_est  {x_3/Marta, x_4/Marta}
+    goal  Estudiante(Marta)
+    fail   Estudiante(Marta)
+  rule   R_miembro_prof  {x_3/Marta, x_9/Marta}
+    goal  Profesor(Marta)
+    fact   Profesor(Marta)  {x_3/Marta, x_9/Marta}
+  goal  HorarioNocturno(Hoy)
+  fact   HorarioNocturno(Hoy)  {x_3/Marta, x_9/Marta}
+Query proved.
+
+Contrast
+--------------------------------------------------
+Query AccesoNoche(Marta):  FC=YES  BC=YES
+Facts FC inferred:  Miembro(Ana), Miembro(Marta), Becario(Ana), AccesoNoche(Ana), AccesoNoche(Marta)
+Goals BC visited:   AccesoNoche(Marta), Miembro(Marta), Estudiante(Marta), Profesor(Marta), HorarioNocturno(Hoy)
+FC extra work (not needed by BC):  Miembro(Ana), Becario(Ana), AccesoNoche(Ana)
+
+#################################################################
+EXPERIMENTO REPORTE: Añadiendo el hecho TieneCredencial(Luis)
+#################################################################
+File: C:\Users\User\Documents\inteligencia-artificial\Razonamiento lógico\project\kb\biblioteca.yaml
+Facts:
+  Estudiante(Ana)
+  Estudiante(Luis)
+  Profesor(Marta)
+  TieneCredencial(Ana)
+  TieneCredencial(Marta)
+  HorarioNocturno(Hoy)
+  TieneCredencial(Luis)
+Rules:
+  R_miembro_est:  Estudiante(x) ∧ TieneCredencial(x)  →  Miembro(x)
+  R_miembro_prof:  Profesor(x)  →  Miembro(x)
+  R_acceso:  Miembro(x) ∧ HorarioNocturno(Hoy)  →  AccesoNoche(x)
+  R_beca:  Estudiante(x) ∧ TieneCredencial(x)  →  Becario(x)
+Query: AccesoNoche(Ana)
+
+=================================================================
+CONSULTA: AccesoNoche(Luis)
+=================================================================
+Forward chaining
+--------------------------------------------------
+Agenda (given facts): Estudiante(Ana), Estudiante(Luis), Profesor(Marta), TieneCredencial(Ana), TieneCredencial(Marta), HorarioNocturno(Hoy), TieneCredencial(Luis)
+Query: AccesoNoche(Luis)
+--- round 1 ---
+Fire R_miembro_est  {x_1/Ana}  ⇒  Miembro(Ana)
+Fire R_miembro_est  {x_1/Luis}  ⇒  Miembro(Luis)
+Fire R_miembro_prof  {x_2/Marta}  ⇒  Miembro(Marta)
+Fire R_beca  {x_4/Ana}  ⇒  Becario(Ana)
+Fire R_beca  {x_4/Luis}  ⇒  Becario(Luis)
+--- round 2 ---
+Fire R_acceso  {x_7/Ana}  ⇒  AccesoNoche(Ana)
+Fire R_acceso  {x_7/Luis}  ⇒  AccesoNoche(Luis)
+Fire R_acceso  {x_7/Marta}  ⇒  AccesoNoche(Marta)
+--- round 3 ---
+No new facts.
+Query proved: AccesoNoche(Luis)
+
+Backward chaining
+--------------------------------------------------
+Query: AccesoNoche(Luis)
+goal  AccesoNoche(Luis)
+rule   R_acceso  {x_3/Luis}
+  goal  Miembro(Luis)
+  rule   R_miembro_est  {x_3/Luis, x_4/Luis}
+    goal  Estudiante(Luis)
+    fact   Estudiante(Luis)  {x_3/Luis, x_4/Luis}
+    goal  TieneCredencial(Luis)
+    fact   TieneCredencial(Luis)  {x_3/Luis, x_4/Luis}
+  goal  HorarioNocturno(Hoy)
+  fact   HorarioNocturno(Hoy)  {x_3/Luis, x_4/Luis}
+Query proved.
+
+Contrast
+--------------------------------------------------
+Query AccesoNoche(Luis):  FC=YES  BC=YES
+Facts FC inferred:  Miembro(Ana), Miembro(Luis), Miembro(Marta), Becario(Ana), Becario(Luis), AccesoNoche(Ana), AccesoNoche(Luis), AccesoNoche(Marta)
+Goals BC visited:   AccesoNoche(Luis), Miembro(Luis), Estudiante(Luis), TieneCredencial(Luis), HorarioNocturno(Hoy)
+FC extra work (not needed by BC):  Miembro(Ana), Miembro(Marta), Becario(Ana), Becario(Luis), AccesoNoche(Ana), AccesoNoche(Marta)
+
