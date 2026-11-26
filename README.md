@@ -1,7 +1,8 @@
-#Equipo: Cochinita en Penca De Nopal
-##Integrantes:
-Carballo Rosas Xail del Carmen
-Pravia Luna Derek
-Vazquez Pech Javier Armando
+# Equipo: Cochinita en Penca De Nopal
+## Integrantes:
 
-##Tema: Orientador Vocacional Universitario
++ Carballo Rosas Xail del Carmen
++ Pravia Luna Derek
++ Vazquez Pech Javier Armando
+
+## Tema: Orientador Vocacional Universitario
